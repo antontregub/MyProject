@@ -1,0 +1,65 @@
+﻿@using PagedList.Mvc;
+@using test.Models;
+@model PagedList.IPagedList<test.Models.Tender>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Tender";
+    AjaxOptions ajax = new AjaxOptions
+    {
+        UpdateTargetId = "content",
+        Url = Url.Action("Index")
+    };
+
+}
+
+<div class="main_content">
+    <div class="filtr">
+       
+        </div>
+  
+        <div class="searsh">
+            <p class="searc"><b>Поиск</b><br></p>
+            <div class="input">
+                Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            </div>
+            <input type="submit" value="Поиск" />
+
+        </div>
+
+
+        <div id="content">
+            <div class="main">
+                @foreach (test.Models.Tender tend in Model)
+    {
+
+            <div class="tender">
+                <div class="block1">
+                    <h4>@tend.Id</h4>
+                    <a href="@Url.Action("tenderPage", "Home", new { itemId=tend.Id} )"><h3>@tend.tender</h3></a>
+                    <h4>@tend.oganizator</h4>
+                </div>
+                <div class="block2">
+                    <h4>@tend.initial_rate @tend.currency</h4>
+                </div>
+                <div class="block3">
+                    <h4>@tend.date_start.ToString("d")<span>-</span> @tend.date_finish.ToString("d")</h4>
+                </div>
+
+            </div>
+}
+                <div class="navigation">
+                @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+                @Html.ActionLink("Sum", "Index", new { sortOrder = ViewBag.SumSortPar })
+                @Html.ActionLink("Category", "Index", new { sortOrder = ViewBag.CategorySortParm })
+                    </div>
+                <div class="page">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+           new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                </div>
+            </div>
+        </div>
+      </div>

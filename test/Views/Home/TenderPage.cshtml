@@ -1,0 +1,30 @@
+﻿@model test.Models.Tender
+@{    ViewBag.Title = "TenderPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div>
+    
+
+</div>
+<div class="main">
+    <div class="top">
+        <div class="block11">
+            <h3>@Model.Id</h3>
+            <h3>@Model.tender</h3>
+            <h4>@Model.description</h4>
+            <h4>@Model.oganizator</h4>
+            <h4>@Model.category</h4>
+        </div>
+        <div class="block11"><h4>@Model.initial_rate @Model.currency</h4></div>
+    </div>
+    <div class="midl">
+        <h4>@Model.oganizator</h4>
+    </div>
+    <div class="low">
+        <h4>Дата публикации: @Model.date.ToString("d")</h4>
+        <h4>Прием предложений с-по: @Model.date_start.ToString("d")<span>-</span> @Model.date_finish.ToString("d")</h4>
+    </div>
+
+</div>
